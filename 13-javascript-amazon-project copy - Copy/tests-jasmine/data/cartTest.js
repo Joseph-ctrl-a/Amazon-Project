@@ -14,7 +14,7 @@ describe('test suite: addToCart', () => {
     expect(cart[0].quantity).toEqual(1);
   });
   it('adds an exisiting item to the cart', () => {
-    spyOn(localStorage, 'setItem')
+    spyOn(localStorage, 'setItem');
 
     spyOn(localStorage, 'getItem').and.callFake(() => {
       return JSON.stringify(
@@ -32,7 +32,6 @@ describe('test suite: addToCart', () => {
     loadFromStorage();
     addToCart('e43638ce-6aa0-4b85-b27f-e1d07eb678c6');
     expect(cart[1].quantity).toEqual(2);
-    console.log(cart);
   });
 
 });

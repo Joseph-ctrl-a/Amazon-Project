@@ -21,7 +21,7 @@ let cartSummaryHTML = ''
       const dateString = calcuateDeliveryDate(deliveryOption);
         //view
       cartSummaryHTML += `        
-              <div class=" not-editing cart-item-container js-${matchingProduct.id}">
+              <div class=" not-editing cart-item-container js-cart-item-container js-cart-item-container-${matchingProduct.id}">
                 <div class="delivery-date js-delivery-${matchingProduct.id}">
                   Delivery date: ${dateString}
                 </div>
@@ -37,7 +37,7 @@ let cartSummaryHTML = ''
                     <div class="product-price">
                       $${formatCurrency(matchingProduct.priceCents, 2)}
                     </div>
-                    <div class="product-quantity">
+                    <div class="product-quantity js-product-quantity-${matchingProduct.id}">
                       <span>
                         Quantity: <span class="quantity-label js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
                       </span>
@@ -46,7 +46,7 @@ let cartSummaryHTML = ''
                       </span>
                       <input data-product-id="${matchingProduct.id}"class="quantity-link quantity-input  js-quantity-input js-quantity-${matchingProduct.id}">
                       <span data-product-id="${matchingProduct.id}" class="save-quantity-link js-save-quantity-link link-primary quantity-input">Save</span>
-                      <span class="delete-quantity-link  js-delete-link link-primary" data-product-id="${matchingProduct.id}"> 
+                      <span class="delete-quantity-link  js-delete-link link-primary js-delete-link-${matchingProduct.id}" data-product-id="${matchingProduct.id}"> 
                         Delete
                       </span>
                     </div>
