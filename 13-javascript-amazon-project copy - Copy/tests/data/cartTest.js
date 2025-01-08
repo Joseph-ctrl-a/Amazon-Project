@@ -1,5 +1,25 @@
-import {addToCart, cart, loadFromStorage} from "../../data/cart.js"
-
+import { cart, loadFromStorage, saveToStorage} from "../../data/cart.js"
+ function addToCart(productId) {
+    let matchingItem;
+  
+    cart.forEach(cartItem => {
+      if (productId === cartItem.productId) {
+        matchingItem = cartItem;
+      }
+    });
+    if (matchingItem) {
+      matchingItem.quantity += 1 //selectorValue;
+    }
+    else {
+      cart.push({
+        productId,
+        quantity: 1, // selectorValue,
+        deliveryOptionId: '1'
+      });
+    }
+  
+    saveToStorage();
+ }
 describe('test suite: addToCart', () => {
   it('adds a new item to the cart', () => {
     spyOn(localStorage, 'setItem'); 
