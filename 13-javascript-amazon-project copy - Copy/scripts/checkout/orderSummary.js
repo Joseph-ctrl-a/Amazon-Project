@@ -11,7 +11,7 @@ let cartSummaryHTML = ''
     renderCheckoutHeader();
     cartSummaryHTML= ''
     cart.forEach((cartItem) => {
-      const productId = cartItem.productId;
+    const {productId} = cartItem;
       const {deliveryOptionId} = cartItem
       const matchingProduct = getProduct(productId);
       let deliveryOption = getDelieveryOption(deliveryOptionId, cartItem);
@@ -30,11 +30,11 @@ let cartSummaryHTML = ''
                   <img class="product-image"
                     src="${matchingProduct.image}">
     
-                  <div class="cart-item-details">
-                    <div class="product-name">
+                  <div class="cart-item-detail">
+                    <div class="product-name js-product-name-${matchingProduct.id}">
                       ${matchingProduct.name}
                     </div>
-                    <div class="product-price">
+                    <div class="product-price js-product-price">
                       $${formatCurrency(matchingProduct.priceCents, 2)}
                     </div>
                     <div class="product-quantity js-product-quantity-${matchingProduct.id}">
@@ -80,14 +80,14 @@ let cartSummaryHTML = ''
       
           const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
           html+= ` 
-                  <div class="delivery-option js-delivery-option"
+                  <div class="delivery-option js-delivery-option js-delivery-option-${matchingProduct.id}-${deliveryOption.id}"
                   data-product-id="${matchingProduct.id}"
                   data-delivery-option-id="${deliveryOption.id}"
                   >
                       <input 
                         ${isChecked ? 'checked': ''}
                         type="radio"
-                        class="delivery-option-input"
+                        class="delivery-option-input js-delivery-option-input-${matchingProduct.id}-${deliveryOption.id}"
                         name="${matchingProduct.id}">
                       <div>
                         <div class="delivery-option-date">
@@ -122,7 +122,7 @@ let cartSummaryHTML = ''
       .forEach(link => {
         link.addEventListener('click', () => {
           const { divId } = link.dataset;
-          const itemContainer = (document.querySelector(`.js-${divId}`))
+          const itemContainer = (document.querySelector(`.js-cart-item-container-${divId}`))
           itemContainer.classList.add('is-editing-quantity');
           itemContainer.classList.remove('not-editing');
           renderPaymentSummary();
@@ -133,9 +133,9 @@ let cartSummaryHTML = ''
       .forEach(saveLink => {
         saveLink.addEventListener('click', () => {
           const { productId } = saveLink.dataset;
-          document.querySelector(`.js-${productId}`)
+          document.querySelector(`.js-cart-item-container-${productId}`)
             .classList.remove('is-editing-quantity');
-          document.querySelector(`.js-${productId}`)
+          document.querySelector(`.js-cart-item-container-${productId}`)
             .classList.add('not-editing');
           updateQuantity(productId);
           renderPaymentSummary();
@@ -152,9 +152,9 @@ let cartSummaryHTML = ''
             cart.forEach(cartItem => {
               if (cartItem.productId === productId) {
                 updateQuantity(productId);
-                document.querySelector(`.js-${productId}`)
+                document.querySelector(`.js-cart-item-container-${productId}`)
                   .classList.remove('is-editing-quantity');
-                document.querySelector(`.js-${productId}`)
+                document.querySelector(`.js-cart-item-container-${productId}`)
                   .classList.add('not-editing');
               }
             })

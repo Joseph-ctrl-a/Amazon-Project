@@ -115,14 +115,19 @@ export function updateQuantity(productId) {
 
 export function updateDeliveryOption(productId, deliveryOptionId) {
   let matchingItem;
-
   cart.forEach(cartItem => {
     if (productId === cartItem.productId) {
-      matchingItem = cartItem;
+      if(deliveryOptionId >= 1 && deliveryOptionId <= 3) {
+        matchingItem = cartItem;
+        matchingItem.deliveryOptionId = deliveryOptionId;
+        console.log(deliveryOptionId);
+        saveToStorage();
+      }
+    }
+  else {
+      return;
     }
   });
-  matchingItem.deliveryOptionId = deliveryOptionId;
-  saveToStorage();
 }         
 
 
