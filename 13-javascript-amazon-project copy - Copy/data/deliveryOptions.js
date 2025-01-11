@@ -36,13 +36,14 @@ function calculateWeekDays(deliveryDays) {
   let i = 1;
   let weekendCounter = 0;
   const today = dayjs();
-  while(i <= deliveryDays) {
+  while(i <= deliveryDays + weekendCounter) {
 
     const currentDay = today.add(i, 'days');
     const currentDayFormat = currentDay.format('dddd');
 
        if(currentDayFormat === 'Saturday' || currentDayFormat === 'Sunday') {
         weekendCounter++;
+        
       }
 
     i++;
