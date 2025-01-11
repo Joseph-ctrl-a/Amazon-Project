@@ -120,7 +120,6 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
       if(deliveryOptionId >= 1 && deliveryOptionId <= 3) {
         matchingItem = cartItem;
         matchingItem.deliveryOptionId = deliveryOptionId;
-        console.log(deliveryOptionId);
         saveToStorage();
       }
     }
