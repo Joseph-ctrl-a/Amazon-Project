@@ -1,4 +1,4 @@
-import { cart, removeFromCart, updateCartQuantity, updateQuantity, updateDeliveryOption} from '../../data/cart.js';
+import { cart } from '../../data/cart-class.js';
 import { getProduct } from "../../data/products.js"
 import { formatCurrency } from "../utils/money.js";
 import { deliveryOptions, getDelieveryOption, calcuateDeliveryDate } from "../../data/deliveryOptions.js";
@@ -10,7 +10,7 @@ let cartSummaryHTML = ''
   export function renderOrderSummary() {
     renderCheckoutHeader();
     cartSummaryHTML= ''
-    cart.forEach((cartItem) => {
+    cart.cartItems.forEach((cartItem) => {
     const {productId} = cartItem;
       const {deliveryOptionId} = cartItem
       const matchingProduct = getProduct(productId);
@@ -106,12 +106,12 @@ let cartSummaryHTML = ''
     
     
 
-    //Controller
+    //Controllers
     document.querySelectorAll('.js-delete-link')
       .forEach((link) => {
         link.addEventListener('click', () => {
           const { productId } = link.dataset;
-          removeFromCart(productId);
+          cart.removeFromCart(productId);
           renderCheckoutHeader();
           renderOrderSummary();
           renderPaymentSummary();
@@ -137,7 +137,7 @@ let cartSummaryHTML = ''
             .classList.remove('is-editing-quantity');
           document.querySelector(`.js-cart-item-container-${productId}`)
             .classList.add('not-editing');
-          updateQuantity(productId);
+          cart.updateQuantity(productId);
           renderPaymentSummary();
           renderCheckoutHeader();
         })
@@ -149,9 +149,9 @@ let cartSummaryHTML = ''
         const { productId } = saveLink.dataset;
         saveLink.addEventListener('keydown', event => {
           if (event.key === 'Enter') {
-            cart.forEach(cartItem => {
+            cart.cartItems.forEach(cartItem => {
               if (cartItem.productId === productId) {
-                updateQuantity(productId);
+                cart.updateQuantity(productId);
                 document.querySelector(`.js-cart-item-container-${productId}`)
                   .classList.remove('is-editing-quantity');
                 document.querySelector(`.js-cart-item-container-${productId}`)
@@ -169,7 +169,7 @@ let cartSummaryHTML = ''
         option.addEventListener('click', () => {
           const {productId, deliveryOptionId } = option.dataset
             
-          updateDeliveryOption(productId, deliveryOptionId);
+          cart.updateDeliveryOption(productId, deliveryOptionId);
           renderOrderSummary();
           renderPaymentSummary();
         });

@@ -1,7 +1,5 @@
-import { addToCart } from '../data/cart.js';
-// import { cart as } from '../data/cart.js';
 import { products } from '../data/products.js';
-import { updateCartQuantity } from '../data/cart.js';
+import { cart } from '../data/cart-class.js';
 //Global Variables
 let productsHTML = '';
 const addedMessageTimeouts = {};
@@ -76,7 +74,6 @@ function addedToCartMessage(productId) {
   addedMessageTimeouts[productId] = timeoutId;
 };
 
-updateCartQuantity('.js-cart-quantity')
 
 
 
@@ -87,11 +84,11 @@ document.querySelectorAll('.js-add-to-cart')
 
     button.addEventListener('click', () => {
       const { productId } = button.dataset;
-      addToCart(productId); 
+      cart.addToCart(productId); 
       addedToCartMessage(productId); 
-      updateCartQuantity('.js-cart-quantity');
+      cart.updateCartQuantity('.js-cart-quantity');
     });
   });
-updateCartQuantity('.js-cart-quantity');
+cart.updateCartQuantity('.js-cart-quantity');
 
 
