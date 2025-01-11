@@ -8,7 +8,7 @@ let productsHTML = '';
 const addedMessageTimeouts = {};
 
 //  Html generation
-products.forEach((product) => {
+products.forEach(product => {
   productsHTML += `
      <div class="product-container">
        <div class="product-image-container">
@@ -46,7 +46,7 @@ products.forEach((product) => {
            <option value="10">10</option>
          </select>
        </div>
-
+        ${product.extraInfoHTML()}
        <div class="product-spacer"></div>
 
        <div class="added-to-cart js-added-to-cart-${product.id}">
